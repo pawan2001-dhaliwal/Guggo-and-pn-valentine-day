@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Guggo ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:system-ui,-apple-system,sans-serif;
+background:linear-gradient(135deg,#ff4d6d,#ff8fa3,#ffc2d1);
+color:white;
+overflow:hidden;
+}
+
+/* GLASS CARD */
+.card{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+border-radius:25px;
+padding:25px;
+max-width:350px;
+margin:auto;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.page{
+display:none;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+text-align:center;
+}
+
+.active{display:flex;}
+
+h1{font-size:24px;margin-bottom:10px;}
+
+img{
+width:220px;
+border-radius:20px;
+margin:10px 0;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+input{
+padding:10px;
+border:none;
+border-radius:20px;
+width:80%;
+margin-top:10px;
+}
+
+button{
+padding:12px 22px;
+font-size:17px;
+border:none;
+border-radius:30px;
+margin:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#yesBtn{background:white;color:#ff4d6d;}
+#noBtn{background:#ffd6db;position:relative;}
+
+/* floating hearts */
+.heart{
+position:absolute;
+bottom:-20px;
+animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+from{transform:translateY(0);opacity:1;}
+to{transform:translateY(-120vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<div class="card">
+<h1>Fill in the blank ❤️<br>When our journey start?</h1>
+<img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400">
+<br>
+<input id="ans1" placeholder="Type answer">
+<br>
+<button onclick="check1()">Next ➜</button>
+<p id="msg1"></p>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<div class="card">
+<h1>Where we meet first? 🥰</h1>
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400">
+<br>
+<input id="ans2" placeholder="Type answer">
+<br>
+<button onclick="check2()">Next ➜</button>
+<p id="msg2"></p>
+</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+<div class="card">
+<h1>WILL YOU BE MY VALENTINE GUGGO ❤️</h1>
+<img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400">
+<br>
+<button id="yesBtn">YES ❤️</button>
+<button id="noBtn">NO 😅</button>
+<p id="message"></p>
+</div>
+</div>
+
+<script>
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+/* PAGE 1 */
+function check1(){
+const v=document.getElementById("ans1").value.toLowerCase().trim();
+if(v==="16 november 2019"){
+showPage("page2");
+}else{
+document.getElementById("msg1").innerHTML="Try again guggo ❤️";
+}
+}
+
+/* PAGE 2 */
+function check2(){
+const v=document.getElementById("ans2").value.toLowerCase().trim();
+if(v==="curo"){
+showPage("page3");
+}else{
+document.getElementById("msg2").innerHTML="Hehe wrong answer 😌";
+}
+}
+
+/* YES + NO FUN */
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const message=document.getElementById("message");
+
+yesBtn.onclick=()=>{
+message.innerHTML="I know you love me a lot ❤️🥰";
+};
+
+let noCount=0;
+function moveNo(){
+noCount++;
+const texts=[
+"No you can’t say no 😅",
+"Its on guggo ❤️",
+"Think again 😌",
+"You love me I know 😉",
+"Okay last chance 😂"
+];
+message.innerHTML=texts[Math.min(noCount-1,texts.length-1)];
+yesBtn.style.transform="scale("+(1+noCount*0.25)+")";
+
+const x=Math.random()*(window.innerWidth-120);
+const y=Math.random()*(window.innerHeight-60);
+noBtn.style.position="absolute";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+noBtn.addEventListener("mouseenter",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+/* HEARTS */
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},350);
+</script>
+
+</body>
+</html>
